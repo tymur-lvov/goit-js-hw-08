@@ -81,6 +81,7 @@ gallery.addEventListener("click", (event) => {
 
   if (event.target.nodeName === "IMG") {
     const source = event.target.getAttribute("data-source");
-    console.log(source);
+    const instance = basicLightbox.create(`<img src="${source}">`);
+    instance.show();
   }
 });
