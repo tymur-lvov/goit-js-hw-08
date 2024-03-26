@@ -69,18 +69,17 @@ const gallery = document.createElement("ul");
 gallery.classList.add("gallery");
 body.append(gallery);
 
-images.forEach((image) => {
-  gallery.insertAdjacentHTML(
-    "beforeend",
-    `<li class="gallery-item"><a class="gallery-link" href="${image.original}"><img class="gallery-image" src="${image.preview}" data-source="${image.original}" alt="${image.description}"></a></li>`
-  );
-});
+const markup = images
+  .map((image) => {
+    return `<li class="gallery-item"><a class="gallery-link" href="${image.original}"><img class="gallery-image" src="${image.preview}" data-source="${image.original}" alt="${image.description}"></a></li>`;
+  })
+  .join("");
+gallery.insertAdjacentHTML("beforeend", markup);
 
 gallery.addEventListener("click", (event) => {
   event.preventDefault();
-
   if (event.target.nodeName === "IMG") {
-    const source = event.target.getAttribute("data-source");
+    const source = event.target.dataset.source;
     const instance = basicLightbox.create(`<img src="${source}">`);
     instance.show();
   }
